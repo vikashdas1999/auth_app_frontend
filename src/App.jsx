@@ -1,12 +1,17 @@
 import './App.css'
+
 import {
   createBrowserRouter,
+  Navigate,
   RouterProvider,
 } from "react-router-dom";
-import Home from './pages/home';
+import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Header from "./Header"
+import AddQuiz from './component/AddQuiz';
+import GetQuiz from './component/GetQuiz';
+import Share from './Share';
 
 
 const router = createBrowserRouter([
@@ -16,20 +21,46 @@ const router = createBrowserRouter([
     // loader: rootLoader,
     children: [
       {
-        index:true,
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: "/login",
         element: <Login />,
       },
       {
-        path:"/signup",
+        path: "/signup",
         element: <Signup />,
       },
       {
-        path:"/Home",
-        element: <Home />,
+        path: "/add",
+        element: <PrivateRoute>
+          <AddQuiz />
+        </PrivateRoute>,
       },
+      {
+        path: "/play-quiz/:id",
+        element:<GetQuiz />,
+      },
+      {
+        path: "/share/:id",
+        element:<Share />,
+      }
     ],
   },
 ]);
+
+
+
+function PrivateRoute({ children }) {
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
+}
 
 function App() {
   return (
