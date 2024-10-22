@@ -16,11 +16,13 @@ const AddQuiz = () => {
     const question = ['What is your birth month?', 'What is your favorite drink?', 'What is your favourite season?', 'What is your favorite color?', 'What is your favorite type of music?'];
     const [quesAns, setQuesAns] = useState([]);
     const [currectQuestion, setCurrentQuestion] = useState(0)
-    const [quizzes, setQuizzes] = useState(null);
+    // const [quizzes, setQuizzes] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const navigate = useNavigate();
 
+    console.log(quesAns,'quesAns all');
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (isSubmitting) return;
@@ -55,8 +57,8 @@ const AddQuiz = () => {
                     'Authorization': localStorage.getItem('token')
                 }
             });
-            setQuizzes(response.data[0].quesAns);
-            console.log(response.data[0].quesAns);
+            // setQuizzes(response.data[0].quesAns);
+            // console.log(response.data[0].quesAns);
             
             handleSuccess('You have already Quiz');
             setTimeout(() => {                

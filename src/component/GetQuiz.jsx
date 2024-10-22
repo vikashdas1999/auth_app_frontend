@@ -1,39 +1,81 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
+import { handleError } from '../utils';
+import QuizPlay from './QuizPlay';
+import Result from './Result';
 
 const GetQuiz = () => {
-    const quizId = useParams();
-    console.log(quizId.id,'quizId')
-    const [quizzes, setQuizzes] = useState(null);
+    const gameId = useParams();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const fetchQuizzesByUser = async (userId) => {
+
+    const [newUserId,setNewUserId] = useState('')
+    const [quizIdUrl, setQuizIdUrl] = useState([]);
+    const [quizzes, setQuizzes] = useState([]);
+    const [quizNum, setQuizNum] = useState(0);
+    // const [isCorrect, setIsCorrect] = useState([]);
+    const [userName, setUserName] = useState('');
+    const [showQuiz, setShowQuiz] = useState(false);
+    const [errorName, setErrorName] = useState(false);
+
+    const question = ['What is your birth month?', 'What is your favorite drink?', 'What is your favourite season?', 'What is your favorite color?', 'What is your favorite type of music?'];
+    const [quesAns, setQuesAns] = useState([]);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+
+    const submitName = () => {
+        if (userName == '')
+            setErrorName(true)
+        else
+            setShowQuiz(true)
+    }
+
+    const handleSaveAnswer = async () => {
+        if (isSubmitting) {
+            return;
+        }
+        setIsSubmitting(true)
         try {
-            const response = await axios.get(`http://localhost:8080/api/quizzes/${userId}`, {
-                headers: {
-                    'Authorization': localStorage.getItem('token')
-                }
-            });
-            setQuizzes(response.data[0].quesAns);
-            console.log(response.data[0].quesAns);
-            
+            const username = userName;
+            const userId = gameId.id;
+            const quizId = quizIdUrl;
+
+            const answers = quesAns;
+            const newQuiz = { username, userId, answers,quizId };
+            const response = await axios.post('http://localhost:8080/api/submit-quiz', newQuiz);
+            console.log(response.data, 'Response');
+            setNewUserId(response.data.id)
+            localStorage.setItem('newUser', response.data.id);
         } catch (error) {
-            // console.error('Error fetching quizzes:', error);
-            setError('Failed to fetch quizzes data');
+            handleError(`Error adding quiz: ${error}`);
         } finally {
-            setLoading(false);
+            setIsSubmitting(false)
         }
     };
 
     useEffect(() => {
-        if(quizId.id){
-            console.log('New User play');
-            return;
+        if (gameId.id) {
+            const fetchQuizzesByUser = async (userId) => {
+                try {
+                    console.log(userId, 'userId here')
+                    const response = await axios.get(`http://localhost:8080/api/quizzes/${userId}`);
+                    console.log(response.data[0],'data game play');
+                    setQuizzes(response.data[0].quesAns);
+                    setQuizIdUrl(response.data[0]._id)
+                    setLoading(false);
+                } catch (error) {
+                    console.error('Error fetching quizzes:', error);
+                    setError('Failed to fetch quizzes data');
+                } finally {
+                    setLoading(false);
+                }
+            };
+            fetchQuizzesByUser(gameId.id);
         }
-        fetchQuizzesByUser(quizId.id);
-    }, [quizId.id]); 
+    }, [gameId.id]);
+
 
     if (loading) {
         return <div>Loading...</div>;
@@ -44,24 +86,30 @@ const GetQuiz = () => {
     }
 
     return (
-        <div>
-            <h1>Quiz</h1>
-            {quizzes && (
-                <div>
-                    {quizzes.map((item, index) => (
-                        <div key={index}>
-                            <h3>{item.question}</h3>
-                            <ul>
-                                {item.options.map((option, idx) => (
-                                    <li key={idx}>{option}</li>
-                                ))}
-                            </ul>
-                            <b>Correct Answer: {item.correctAnswer}</b>
+        <>
+            <main>
+                {
+                    !showQuiz ?
+                        <div className='main-box'>
+                            <div className='inner_bx_white'>
+                                <div className='question_bx-quiz'>
+                                    <h1 className='quiz_question'>Enter Your Name</h1>
+                                    <div className='name_field_box'>
+                                        <input value={userName} onChange={(e) => setUserName(e.target.value)} id="username" type="text" placeholder="Enter your name" />
+                                        {errorName ? <p>Please Enter Name</p> : ''}
+                                    </div>
+
+                                    <button type="button" onClick={() => submitName()} className="btn_submit_name">Submit</button>
+                                </div>
+                            </div>
                         </div>
-                    ))}
-                </div>
-            )}
-        </div>
+                        :
+                        <div className='main-box'>
+                            <QuizPlay newUserId={newUserId} quizzes={quizzes} handleSaveAnswer={handleSaveAnswer} setQuizNum={setQuizNum} setQuesAns={setQuesAns} quizNum={quizNum} />
+                        </div>
+                }
+            </main>
+        </>
     );
 }
 

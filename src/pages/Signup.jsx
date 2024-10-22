@@ -93,7 +93,7 @@ const Signup = () => {
         }
     };
     return (
-        <div className="container m-auto">
+        <div className="container-login ">
             <div className="card m-auto">
                 <div className="card_title">
                     <h1>Create Account</h1>

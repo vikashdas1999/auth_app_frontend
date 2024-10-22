@@ -370,3 +370,323 @@
   font-weight: 700;
   cursor: pointer;
 }
+
+
+/* 22 Oct 2024 */
+.main-box {
+  background: linear-gradient(to right, rgb(128, 0, 128), rgb(255, 192, 203));
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-align: center;
+  align-items: center;
+  padding: 50px 20px 20px;
+}
+
+.inner_bx_white {
+  max-width: 600px;
+  width: calc(100% - 20px);
+  min-height: 500px;
+  background: rgb(255, 255, 255);
+  border-radius: 4px;
+  padding: 30px 60px 80px;
+  margin-bottom: 70px;
+  position: relative;
+}
+
+.quiz_main_num {
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  align-items: center;
+  gap: 6px;
+}
+
+.quiz_num_act {
+  font-size: clamp(40px, 5vw, 60px);
+  font-weight: 500;
+  color: rgb(128, 0, 128);
+}
+
+.quiz_num_total {
+  font-size: clamp(20px, 5vw, 30px);
+  font-weight: 500;
+  color: rgb(129, 122, 142);
+}
+
+.question_bx-quiz {
+  margin-top: 30px;
+  margin-bottom: 40px;
+  max-width: 100%;
+}
+
+.quiz_question {
+  font-size: clamp(18px, 4vw, 28px);
+  font-weight: 500;
+  margin-bottom: 25px;
+  color: rgb(17, 5, 44);
+  line-height: 1.3;
+}
+
+.options_list-wrp {
+  max-width: 100%;
+}
+
+.option_bx {
+  font-size: clamp(18px, 4vw, 16px);
+  color: rgb(45, 38, 75);
+  font-weight: 400;
+  border: 1px solid rgb(234, 234, 234);
+  background-color: rgb(255, 255, 255);
+  border-radius: 16px;
+  margin-top: clamp(13px, 7.27273px + 0.454545vw, 16px);
+  cursor: pointer;
+}
+
+.option_bx label {
+  padding: 18px;
+  display: flex;
+  cursor: pointer;
+}
+
+.option_bx label input {
+  visibility: hidden;
+  margin: 0px;
+}
+
+.option_bx.selected {
+  border: 1px solid rgb(128, 0, 128);
+  background-color: rgb(255, 214, 255);
+  color: rgb(45, 38, 75);
+}
+
+.buttons-btm {
+  position: absolute;
+  right: 60px;
+  bottom: 30px;
+  display: flex;
+  gap: 20px;
+}
+
+.btn_next {
+  width: 195px;
+  min-height: 50px;
+  color: rgb(255, 255, 255);
+  background: linear-gradient(90.04deg, rgb(128, 0, 128) 0.03%, rgb(255, 192, 203) 99.96%);
+  font-size: clamp(16px, 5vw, 24px);
+  font-weight: 400;
+  border-radius: 9px;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.btn_next:disabled {
+  background: rgb(231, 232, 233);
+  color: rgb(159, 163, 169);
+  cursor: not-allowed;
+  transform: unset;
+  box-shadow: unset;
+}
+
+.btn_next span {
+  margin-left: 20px;
+  display: flex;
+}
+
+.name_field_box input {
+  width: 100%;
+  height: 52px;
+  border: 1px solid #00000038;
+  padding: 10px 20px;
+  border-radius: 6px;
+  outline: none;
+  font-size: 18px;
+}
+
+button.btn_submit_name {
+  margin-top: 30px;
+  width: 100%;
+  min-height: 50px;
+  color: rgb(255, 255, 255);
+  background: linear-gradient(90.04deg, rgb(128, 0, 128) 0.03%, rgb(255, 192, 203) 99.96%);
+  font-size: clamp(16px, 5vw, 24px);
+  font-weight: 400;
+  border-radius: 9px;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+
+
+
+.modal_wrp {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  padding: 15px;
+}
+
+.inner_bx {
+  width: 600px;
+  padding: 50px 25px;
+  background: rgb(255, 255, 255);
+  border-radius: 10px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.heaing_modal {
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 700;
+  color: rgb(128, 0, 128);
+  margin-top: 26px;
+  margin-bottom: 20px;
+}
+
+.sub_pera {
+  font-size: clamp(18px, 4vw, 24px);
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.3;
+  color: rgb(17, 5, 44);
+  margin-bottom: clamp(18px, 5.27273px + 2.12121vw, 48px);
+}
+
+.show_result_btn {
+  width: 195px;
+  min-height: 50px;
+  color: rgb(255, 255, 255);
+  background: linear-gradient(90.04deg, rgb(128, 0, 128) 0.03%, rgb(255, 192, 203) 99.96%);
+  font-size: clamp(16px, 5vw, 24px);
+  font-weight: 700;
+  border-radius: 9px;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.main_parent_result {
+  background: linear-gradient(to right, rgb(128, 0, 128), rgb(255, 192, 203));
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 20px 20px;
+}
+
+.result_box {
+  max-width: 900px;
+  width: calc(100% - 20px);
+  background: rgb(255, 255, 255);
+  border-radius: 4px;
+  margin: 0px auto 40px;
+  padding: 40px 90px 90px;
+}
+
+
+
+.right_wrong_ques {
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+.right_wrong_ques .width_90_per {
+  width: 90%;
+}
+
+.question_header {
+  display: flex;
+  gap: 4px;
+}
+
+.question_header h6 {
+  font-size: clamp(16px, 5vw, 24px);
+  font-weight: 500;
+  line-height: 1.3;
+  color: rgb(17, 5, 44);
+}
+
+.question_header span {
+  font-size: clamp(16px, 5vw, 24px);
+  font-weight: 500;
+  line-height: 1.3;
+  color: rgb(17, 5, 44);
+  margin-bottom: 20px;
+}
+
+.options_list_q ul {
+  padding: 0;
+  margin: 0;
+}
+
+.options_list_q ul li {
+  border: 1px solid rgb(234, 234, 234);
+  width: 100%;
+  background: rgb(255, 255, 255);
+  border-radius: 16px;
+  font-size: clamp(16px, 5vw, 18px);
+  font-weight: 600;
+  padding: 15px;
+  color: rgb(45, 38, 75);
+  margin-top: clamp(13px, 7.27273px + 0.454545vw, 16px);
+}
+
+.options_list_q ul li.wrong_answer {
+  background: rgb(255, 215, 222);
+  color: rgb(45, 38, 75);
+  border: 1px solid rgb(255, 20, 62);
+}
+.options_list_q ul li.right_answer {
+  background: rgb(221, 255, 220);
+  color: rgb(45, 38, 75);
+  border: 1px solid rgb(18, 180, 14);
+}
+
+.options_list_q ul li span{
+  margin-right: 14px;
+}
+
+.share_quiz_box{
+  position: relative;
+}
+.share_quiz_box input{
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.274);
+  padding: 10px 12px;
+  border-radius: 6px;
+  outline: none;
+}
+.copy_btn {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  padding: 10px 10px;
+  background: #e8e8e8;
+  border-radius: 0 4px 4px 0;
+}
+.share_title{
+  font-size: 28px; 
+  font-weight: 600;
+  padding-bottom: 20px;
+}

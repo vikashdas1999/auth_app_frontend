@@ -12,6 +12,7 @@ import Header from "./Header"
 import AddQuiz from './component/AddQuiz';
 import GetQuiz from './component/GetQuiz';
 import Share from './Share';
+import Result from './component/Result';
 
 
 const router = createBrowserRouter([
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: "/share/:id",
         element:<Share />,
+      },
+      {
+        path: "/result/:id",
+        element:<Result />,
       }
     ],
   },
