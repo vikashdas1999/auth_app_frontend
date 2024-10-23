@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const AddQuiz = () => {
-    const quizId = localStorage.getItem('userId');
+    const quizId = sessionStorage.getItem('userId');
     const question = ['What is your birth month?', 'What is your favorite drink?', 'What is your favourite season?', 'What is your favorite color?', 'What is your favorite type of music?'];
     const [quesAns, setQuesAns] = useState([]);
     const [currectQuestion, setCurrentQuestion] = useState(0)
@@ -21,10 +21,12 @@ const AddQuiz = () => {
 
     const navigate = useNavigate();
 
-    console.log(quesAns,'quesAns all');
+    // console.log(quesAns,'quesAns all');
     
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log('submit asnwer ');
+        
         if (isSubmitting) return;
         setIsSubmitting(true); 
         try {
@@ -33,11 +35,13 @@ const AddQuiz = () => {
 
             const response = await axios.post('http://localhost:8080/api/quizzes', newQuiz, {
                 headers: {
-                    'Authorization': localStorage.getItem('token')
+                    'Authorization': sessionStorage.getItem('token')
                 }
             });
+            console.log(response.data,'response');
+            
             const quizId = response.data._id; // Adjust according to your API response structure
-            const shareableUrl = `http://localhost:8080/play-quiz/${quizId}`; // Construct the shareable URL
+            const shareableUrl = `http://localhost:5173/play-quiz/${quizId}`; // Construct the shareable URL
 
             console.log(shareableUrl,'shareableUrl');
 
@@ -54,7 +58,7 @@ const AddQuiz = () => {
         try {
             const response = await axios.get(`http://localhost:8080/api/quizzes/${userId}`, {
                 headers: {
-                    'Authorization': localStorage.getItem('token')
+                    'Authorization': sessionStorage.getItem('token')
                 }
             });
             // setQuizzes(response.data[0].quesAns);
@@ -73,12 +77,12 @@ const AddQuiz = () => {
     
     useEffect(() => {
         fetchQuizzesByUser(quizId);
-    }, []); 
+    }, []);
 
     return (
         <main>
 
-            <div className='max-w-2xl m-auto rounded-lg border bg-card bg-white text-card-foreground shadow-sm'>
+            <div className='mt-6 max-w-2xl m-auto rounded-lg border bg-card bg-white text-card-foreground shadow-sm'>
                 <form>
                     {
                         currectQuestion == 0 ? <AddMonthQuestion currectQuestion={currectQuestion} setCurrentQuestion={setCurrentQuestion} question={question[0]} setQuesAns={setQuesAns} />
@@ -103,7 +107,12 @@ const AddQuiz = () => {
                     {
                         currectQuestion == 5? 
                         <>
-                            <button onClick={handleSubmit}>Save Question</button>
+                            <div className='flex flex-col space-y-1.5 px-6 pt-6 mt-6'>
+                                <h2 className='text-3xl text-center font-semibold leading-none tracking-tight mb-4 border-bottom'>Save Quiz and generate </h2>
+                            </div>
+                            <div className='mt-4 w-full px-12 pb-12'>
+                                <button className='text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 w-full' onClick={handleSubmit}>Save Question</button>
+                            </div>
                         </>
                         :''
                     }

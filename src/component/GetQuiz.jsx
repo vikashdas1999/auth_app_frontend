@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { handleError } from '../utils';
 import QuizPlay from './QuizPlay';
 import Result from './Result';
@@ -10,7 +10,7 @@ const GetQuiz = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-
+    const navigate = useNavigate()
     const [newUserId,setNewUserId] = useState('')
     const [quizIdUrl, setQuizIdUrl] = useState([]);
     const [quizzes, setQuizzes] = useState([]);
@@ -47,7 +47,7 @@ const GetQuiz = () => {
             const response = await axios.post('http://localhost:8080/api/submit-quiz', newQuiz);
             console.log(response.data, 'Response');
             setNewUserId(response.data.id)
-            localStorage.setItem('newUser', response.data.id);
+            sessionStorage.setItem('newUser', response.data.id);
         } catch (error) {
             handleError(`Error adding quiz: ${error}`);
         } finally {
@@ -67,12 +67,19 @@ const GetQuiz = () => {
                     setLoading(false);
                 } catch (error) {
                     console.error('Error fetching quizzes:', error);
+                    // navigate('/');
+                    handleError('Data Not Found')
                     setError('Failed to fetch quizzes data');
                 } finally {
                     setLoading(false);
                 }
             };
             fetchQuizzesByUser(gameId.id);
+        }
+        if(error){
+            console.log("Error Found");
+            
+            // navigate('/')
         }
     }, [gameId.id]);
 

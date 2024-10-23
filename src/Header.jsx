@@ -8,8 +8,8 @@ const Header = () => {
     const [userId, setUserId] = useState(false)
     const navigate = useNavigate()
     useEffect(() => {
-        setUserId(localStorage.getItem('userId'));
-        if (localStorage.getItem('token')) {
+        setUserId(sessionStorage.getItem('userId'));
+        if (sessionStorage.getItem('token')) {
             setLogInUser(true)
         } else {
             setLogInUser(false)
@@ -19,9 +19,10 @@ const Header = () => {
 
     const handleLogout = (e) => {
         e.preventDefault();
-        localStorage.removeItem('token')
-        localStorage.removeItem('loggedInUser')
-        localStorage.removeItem('userId')
+        sessionStorage.removeItem('token')
+        sessionStorage.removeItem('loggedInUser')
+        sessionStorage.removeItem('userId')
+        sessionStorage.removeItem('newUser')
         handleSuccess('Logout succesfully')
         setTimeout(() => {
             navigate('/')
@@ -61,7 +62,8 @@ const Header = () => {
                                     </li>
                                     <li className='max-lg:border-b border-gray-300 max-lg:py-3 px-3'>
                                         <Link to={`/play-quiz/${userId}`} className='hover:text-[#007bff] text-[#007bff] block font-semibold text-[15px]'>Play Quiz</Link>
-                                    </li></> : ''
+                                    </li>
+                                </> : ''
                             }
                         </ul>
                     </div>
@@ -72,19 +74,11 @@ const Header = () => {
                                 <button onClick={handleLogout} className='px-4 py-2 text-sm rounded-full font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff]'>
                                     Logout</button> :
                                 <>
-                                    <Link to="/login" className='px-4 py-2 text-sm rounded-full font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff]'>Login</Link>
+                                    <Link to="/" className='px-4 py-2 text-sm rounded-full font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff]'>Login</Link>
                                     <Link to="/signup" className='px-4 py-2 text-sm rounded-full font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff]'>Sign up</Link>
                                 </>
                         }
 
-
-                        <button id="toggleOpen" className='lg:hidden'>
-                            <svg className="w-7 h-7" fill="#000" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fillRule="evenodd"
-                                    d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                                    clipRule="evenodd"></path>
-                            </svg>
-                        </button>
                     </div>
                 </div>
             </header>

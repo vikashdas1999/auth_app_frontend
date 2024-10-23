@@ -23,10 +23,6 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />,
-      },
-      {
-        path: "/login",
         element: <Login />,
       },
       {
@@ -40,28 +36,28 @@ const router = createBrowserRouter([
         </PrivateRoute>,
       },
       {
-        path: "/play-quiz/:id",
-        element:<GetQuiz />,
-      },
-      {
         path: "/share/:id",
         element:<Share />,
-      },
-      {
-        path: "/result/:id",
-        element:<Result />,
       }
     ],
   },
+  {
+    path: "/play-quiz/:id",
+    element:<GetQuiz />,
+  },
+  {
+    path: "/result/:id",
+    element:<Result />,
+  }
 ]);
 
 
 
 function PrivateRoute({ children }) {
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
 
   if (!token) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/" replace />;
   }
 
   return children;

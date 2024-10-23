@@ -10,8 +10,8 @@ const Home = () => {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    localStorage.removeItem('token')
-    localStorage.removeItem('loggedInUser')
+    sessionStorage.removeItem('token')
+    sessionStorage.removeItem('loggedInUser')
     handleSuccess('Logout succesfully')
     setTimeout(() => {
       navigate('/')
@@ -22,7 +22,7 @@ const Home = () => {
   //      const url = "https://auth-app-backend-seven.vercel.app/products" 
   //      const headers = {
   //       headers:{
-  //         'Authorization':localStorage.getItem('token')
+  //         'Authorization':sessionStorage.getItem('token')
   //       }
   //      }
   //      const response = await fetch(url,headers);

@@ -386,7 +386,7 @@
 .inner_bx_white {
   max-width: 600px;
   width: calc(100% - 20px);
-  min-height: 500px;
+  min-height: 300px;
   background: rgb(255, 255, 255);
   border-radius: 4px;
   padding: 30px 60px 80px;
@@ -595,12 +595,14 @@ button.btn_submit_name {
 
 .result_box {
   max-width: 900px;
-  width: calc(100% - 20px);
+  width: 100%;
   background: rgb(255, 255, 255);
   border-radius: 4px;
   margin: 0px auto 40px;
   padding: 40px 90px 90px;
 }
+
+
 
 
 
@@ -612,7 +614,7 @@ button.btn_submit_name {
 }
 
 .right_wrong_ques .width_90_per {
-  width: 90%;
+  width: 100%;
 }
 
 .question_header {
@@ -657,26 +659,29 @@ button.btn_submit_name {
   color: rgb(45, 38, 75);
   border: 1px solid rgb(255, 20, 62);
 }
+
 .options_list_q ul li.right_answer {
   background: rgb(221, 255, 220);
   color: rgb(45, 38, 75);
   border: 1px solid rgb(18, 180, 14);
 }
 
-.options_list_q ul li span{
+.options_list_q ul li span {
   margin-right: 14px;
 }
 
-.share_quiz_box{
+.share_quiz_box {
   position: relative;
 }
-.share_quiz_box input{
+
+.share_quiz_box input {
   width: 100%;
   border: 1px solid rgba(0, 0, 0, 0.274);
   padding: 10px 12px;
   border-radius: 6px;
   outline: none;
 }
+
 .copy_btn {
   position: absolute;
   top: 1px;
@@ -685,8 +690,58 @@ button.btn_submit_name {
   background: #e8e8e8;
   border-radius: 0 4px 4px 0;
 }
-.share_title{
-  font-size: 28px; 
+
+.share_title {
+  font-size: 28px;
   font-weight: 600;
   padding-bottom: 20px;
 }
+
+
+.create_quiz_btn {
+  width: 100%;
+  min-height: 70px;
+  color: rgb(255, 255, 255);
+  background: linear-gradient(90.04deg, rgb(128, 0, 128) 0.03%, rgb(255, 192, 203) 99.96%);
+  font-size: clamp(16px, 5vw, 24px);
+  font-weight: 600;
+  letter-spacing: 1px;
+  word-spacing: 0.6px;
+  text-transform:uppercase;
+  border-radius: 9px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 60px;
+}
+
+.social_icons {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding-top: 20px;
+}
+
+.social_icons button {
+  outline: none;
+  border: 0;
+  background: transparent;
+}
+
+.social_icons button img {
+  height: 80px;
+}
+
+
+@media(max-width:767px) {
+  .main_parent_result {
+    padding: 10px 10px 10px;
+  }
+
+  .result_box {
+    padding: 40px 20px 20px;
+  }
+}
+
+
+

@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer } from "react-toastify"
 import { handleError, handleSuccess } from '../utils'
 import Loader from './Loader'
 
 const Signup = () => {
+    const loggedInUser = sessionStorage.getItem('token');
     const [signupInfo, setSignupInfo] = useState({
         name: '',
         email: '',
@@ -61,8 +62,6 @@ const Signup = () => {
             handleError(error)
         }
     }
-
-
     const loginUser = async (email, password) => {
         const url = "http://localhost:8080/auth/login"; // Adjust URL as needed
         try {
@@ -78,9 +77,9 @@ const Signup = () => {
 
             if (success) {
                 // handleSuccess(message);
-                localStorage.setItem('token', jwtToken)
-                localStorage.setItem('loggedInUser', name)
-                localStorage.setItem('userId', user)
+                sessionStorage.setItem('token', jwtToken)
+                sessionStorage.setItem('loggedInUser', name)
+                sessionStorage.setItem('userId', user)
                 setTimeout(() => { navigate('/add') }, 1000);
             } else if (error) {
                 const details = error?.details[0].message;
@@ -92,6 +91,13 @@ const Signup = () => {
             handleError('Login failed. Please try again.');
         }
     };
+
+    
+    useEffect(()=>{
+        if(loggedInUser){
+            navigate('/add')
+        }
+    })
     return (
         <div className="container-login ">
             <div className="card m-auto">

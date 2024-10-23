@@ -1,10 +1,10 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const Result = () => {
     const userId = useParams();
-    const newUser = localStorage.getItem('newUser')
+    const newUser = sessionStorage.getItem('newUser')
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -99,6 +99,7 @@ const Result = () => {
                     }
 
                 </div>
+                <Link className='create_quiz_btn' to='/signup'>Create Your Own Quiz</Link>
             </div>
 
         </div>

@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import { handleError, handleSuccess } from '../utils'
 import Loader from './Loader'
 
 const Login = () => {
+    const loggedInUser = sessionStorage.getItem('token');
     const [signinInfo, setSigninInfo] = useState({
         email: '',
         password: ''
@@ -48,9 +49,9 @@ const Login = () => {
             console.log(user,'userId');
             if (success) {
                 handleSuccess(message);                
-                localStorage.setItem('token',jwtToken)
-                localStorage.setItem('loggedInUser',name)
-                localStorage.setItem('userId',user)
+                sessionStorage.setItem('token',jwtToken)
+                sessionStorage.setItem('loggedInUser',name)
+                sessionStorage.setItem('userId',user)
                 setTimeout(() => {navigate('/add')}, 1000);
             } else if(error) {
                 const details = error?.details[0].message;
@@ -66,6 +67,11 @@ const Login = () => {
             handleError(error)
         }
     }
+    useEffect(()=>{
+        if(loggedInUser){
+            navigate('/add')
+        }
+    })
   return (
     <div className="container-login">
             <div className="card">

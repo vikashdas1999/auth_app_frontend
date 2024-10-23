@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { handleError } from '../utils';
 
 const AddMusicQuestion = ({question,setQuesAns,currectQuestion,setCurrentQuestion}) => {
 
@@ -35,6 +36,10 @@ const AddMusicQuestion = ({question,setQuesAns,currectQuestion,setCurrentQuestio
 
     
     const submitAnswer = () => {
+        if(correctAns == ''){
+            handleError('Please select a value');
+            return;
+        }
         const newQuestion = {
             question: question,
             options: options,
@@ -57,6 +62,7 @@ const AddMusicQuestion = ({question,setQuesAns,currectQuestion,setCurrentQuestio
                     <select
                         onChange={(e) => handleGenerateOptions(e.target.value)}
                         className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
+                        <option style={{display:'none'}}>Select Value</option>
                         {
                             ["Pop","Rock","Hip Hop","Jazz","Classical","Country","Electronic","Reggae","Blues","R&B","Metal","Folk","Latin","Indie","Punk"].map((option, index) => (
                                 <option key={index}>{option}</option>
